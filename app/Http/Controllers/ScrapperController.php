@@ -10,24 +10,20 @@ class ScrapperController extends Controller
     // function to scrap web data
     public function scrapper()
     {
-        $all_data = [];
         $client = new Client();
-        $url = 'https://medex.com.bd/companies';
-        $crawler = $client->request('GET', $url);
 
-        // $crawler->filter('.data-row-top')->each(function ($node)
-        // {
-        //     dump($node->text());
-        // });
+        // $url = 'https://growtechbd.com/about-us';
+        // $crawler = $client->request('GET', $url);
+        // dump($crawler);
 
-        for ($i=1; $i < 7; $i++) { 
-            $url = 'https://medex.com.bd/companies?page=' . $i;
+        for ($i=1; $i < 2; $i++) { 
+            $url = 'https://growtechbd.com/about-us';
             $crawler = $client->request('GET', $url);
+            // dump($crawler);
 
-            $crawler->filter('.data-row-top')->each(function ($node)
+            $crawler->filter('.card')->each(function ($node)
             {
-                dump($node->text());
-                // array_push($all_data, $node->text());
+                dump($node->filter('h3')->text());
             });
         }
 

@@ -14,6 +14,6 @@ return [
      */
 
     'client' => [
-        'max_redirects' => 100000
+        'max_redirects' => 0
     ],
 ];

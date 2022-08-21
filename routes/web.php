@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pharmaceuticals', [ScrapperController::class, 'scrapper']);
+Route::get('/get-data', [ScrapperController::class, 'scrapper']);
