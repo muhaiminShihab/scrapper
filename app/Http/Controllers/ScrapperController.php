@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Goutte;
+use Goutte\Client;
 
 class ScrapperController extends Controller
 {
@@ -11,18 +11,28 @@ class ScrapperController extends Controller
     public function scrapper()
     {
         $all_data = [];
-        $url = 'https://medex.com.bd/brands';
-        $crawler = Goutte::request('GET', $url);
+        $client = new Client();
+        $url = 'https://medex.com.bd/companies';
+        $crawler = $client->request('GET', $url);
 
-        // dump($crawler);
+        // $crawler->filter('.data-row-top')->each(function ($node)
+        // {
+        //     dump($node->text());
+        // });
 
-        $crawler->filter('.row')->each(function ($node)
-        {
-            dump($node->text());
-        });
+        for ($i=1; $i < 7; $i++) { 
+            $url = 'https://medex.com.bd/companies?page=' . $i;
+            $crawler = $client->request('GET', $url);
+
+            $crawler->filter('.data-row-top')->each(function ($node)
+            {
+                dump($node->text());
+                // array_push($all_data, $node->text());
+            });
+        }
 
         // return view
-        // return $all_data;
+        // return json_encode($all_data);
         // return view('scrapper', compact('all_data'));
     }
 }

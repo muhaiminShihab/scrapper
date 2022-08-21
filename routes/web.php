@@ -18,12 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/yoyo', function() {
-    $crawler = Goutte::request('GET', 'https://medex.com.bd/companies');
-    $crawler->filter('.col-xs-12 .data-row')->each(function ($node) {
-      dump($node->text());
-    });
-});
-
-Route::get('/scrapper', [ScrapperController::class, 'scrapper']);
+Route::get('/pharmaceuticals', [ScrapperController::class, 'scrapper']);
